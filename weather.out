@@ -1,0 +1,203 @@
+WARNING:apscheduler.executors.default:Run time of job "sampleAndDisplay (trigger: interval[0:00:30], next run at: 2021-12-11 06:22:20 EST)" was missed by 0:00:25.766409
+WARNING:apscheduler.executors.default:Run time of job "tick (trigger: interval[0:01:00], next run at: 2021-09-07 14:38:50 EDT)" was missed by 0:00:28.144325
+WARNING:apscheduler.executors.default:Run time of job "writeWeatherRecord (trigger: interval[0:01:00], next run at: 2021-12-11 06:22:50 EST)" was missed by 0:00:30.528076
+WARNING:apscheduler.executors.default:Run time of job "updateRain (trigger: interval[0:01:00], next run at: 2021-12-11 06:22:50 EST)" was missed by 0:00:32.923045
+WARNING:apscheduler.executors.default:Run time of job "writePowerRecord (trigger: interval[0:05:00], next run at: 2021-12-11 06:22:50 EST)" was missed by 0:04:33.436254
+WARNING:apscheduler.executors.default:Run time of job "checkForButtons (trigger: interval[0:10:00], next run at: 2021-09-07 14:47:50 EDT)" was missed by 0:04:33.648929
+WARNING:apscheduler.executors.default:Run time of job "doAllGraphs (trigger: interval[0:15:00], next run at: 2021-12-11 06:22:50 EST)" was missed by 0:14:33.849871
+WARNING:apscheduler.executors.default:Run time of job "WLAN_check (trigger: interval[0:30:00], next run at: 2021-09-07 15:07:50 EDT)" was missed by 0:14:33.925650
+WARNING:apscheduler.executors.default:Run time of job "statusRain (trigger: interval[1:00:00], next run at: 2021-12-11 06:37:50 EST)" was missed by 0:44:33.997804
+WARNING:apscheduler.executors.default:Run time of job "barometricTrend (trigger: interval[1:00:00], next run at: 2021-12-11 06:37:50 EST)" was missed by 0:44:34.025756
+WARNING:apscheduler.executors.default:Run time of job "sampleAndDisplay (trigger: interval[0:00:30], next run at: 2021-12-11 06:22:20 EST)" was missed by 0:00:13.138940
+TSL2591 Init Complete: LUX: 160.752000 W/(m*m),FULL: 64, IR: 15
+('after bme680', True)
+as3935 start
+I/O error1(121): Remote I/O error
+I/O error2(121): Remote I/O error
+AS3935 Not Present - Interupts Disabled
+tmp= [98, 35, 216, 116, 96, 130]
+outsideTemperature: 22.1 C
+outsideHumidity: 45.5 %
+crcH: 0x82
+crcT 0xd8
+SHT3x Init Complete
+
+SkyWeather Weather Station Version 055-sk - SwitchDoc Labs
+
+
+Program Started at:2021-09-07 14:37:35
+
+------------------------------------
+I2C Mux - TCA9545      : [1;32;40m Present
+BME680                 : [1;32;40m Present
+BMP280                 : [1;31;40m Not Present[0;0m
+SkyCam                 : [1;31;40m Not Present[0;0m
+DS3231                 : [1;32;40m Present
+HDC1080                : [1;31;40m Not Present[0;0m
+SHT30                  : [1;32;40m Present
+AM2315                 : [1;31;40m Not Present[0;0m
+ADS1015                : [1;32;40m Present
+ADS1115                : [1;31;40m Not Present[0;0m
+AS3935                 : [1;31;40m Not Present[0;0m
+OLED                   : [1;31;40m Not Present[0;0m
+SunAirPlus/SunControl  : [1;31;40m Not Present[0;0m
+SolarMAX               : [1;31;40m Not Present[0;0m
+VEML6070 UV Sensor     : [1;31;40m Not Present[0;0m
+SI1145 Sun Sensor      : [1;31;40m Not Present[0;0m
+TSL2591 Sun Sensor     : [1;32;40m Present
+DustSensor             : [1;31;40m Not Present[0;0m
+WXLink                 : [1;31;40m Not Present[0;0m
+Dual SolarMAX/WXLink   : [1;31;40m Not Present[0;0m
+UseBlynk               : [1;31;40m Not Present[0;0m
+UseMySQL               : [1;32;40m Present
+Check WLAN             : [1;31;40m Not Present[0;0m
+WeatherUnderground     : [1;32;40m Present
+UseWeatherStem         : [1;31;40m Not Present[0;0m
+------------------------------------
+sendmail exception raised
+**********************
+* Sample and Display *
+**********************
+----------------- 
+ Weather Sampling
+----------------- 
+--Sending Data to WeatherUnderground--
+cws=| 0.0
+myURL= ID=IWELLA10&PASSWORD=di6xoYUb&dateutc=now&winddir=0&windspeedmph=0.00&windgustmph=0.00&humidity=45&tempf=71.78&dewptf=52.12&rainin=0.00&dailyrainin=0.00&baromin=29.44&indoortempf=72.52&uv=0.00&indoorhumidity38.61=&software=SkyWeather
+https://rtupdate.wunderground.com/weatherstation/updateweatherstation.php?ID=IWELLA10&PASSWORD=di6xoYUb&dateutc=now&winddir=0&windspeedmph=0.00&windgustmph=0.00&humidity=45&tempf=71.78&dewptf=52.12&rainin=0.00&dailyrainin=0.00&baromin=29.44&indoortempf=72.52&uv=0.00&indoorhumidity38.61=&software=SkyWeather
+success
+
+***************** 
+***************** 
+***************** 
+Raspberry Pi=	2021-09-07 14:37:50
+DS3231=		2021-09-07 14:37:50
+DS3231 Temperature= 	22.75 C
+************* 
+ AS3935 Lightning Detector Not Present 
+**********************
+----No Lightning detected---
+Lightning Count =  0
+----------------- 
+***************************
+* Sample and Display Done *
+***************************
+-----------------
+Scheduled Jobs
+-----------------
+Jobstore default:
+    sampleAndDisplay (trigger: interval[0:00:30], next run at: 2021-09-07 14:38:20 EDT)
+    tick (trigger: interval[0:01:00], next run at: 2021-09-07 14:38:50 EDT)
+    writeWeatherRecord (trigger: interval[0:01:00], next run at: 2021-09-07 14:38:50 EDT)
+    updateRain (trigger: interval[0:01:00], next run at: 2021-09-07 14:38:50 EDT)
+    writePowerRecord (trigger: interval[0:05:00], next run at: 2021-09-07 14:42:50 EDT)
+    checkForButtons (trigger: interval[0:10:00], next run at: 2021-09-07 14:47:50 EDT)
+    doAllGraphs (trigger: interval[0:15:00], next run at: 2021-09-07 14:52:50 EDT)
+    WLAN_check (trigger: interval[0:30:00], next run at: 2021-09-07 15:07:50 EDT)
+    statusRain (trigger: interval[1:00:00], next run at: 2021-09-07 15:37:50 EDT)
+    barometricTrend (trigger: interval[1:00:00], next run at: 2021-09-07 15:37:50 EDT)
+-----------------
+Tick! The time is: 2021-12-11 06:22:50.824197
+**********************
+* Sample and Display *
+**********************
+----------------- 
+ Weather Sampling
+----------------- 
+trying database
+Connected to database:
+query=INSERT INTO Tanks_Log(T, TT, T1ERROR:apscheduler.executors.default:Job "doAllGraphs (trigger: interval[0:15:00], next run at: 2021-12-11 06:37:50 EST)" raised an exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/home/active/SDL_Pi_SkyWeather/doAllGraphs.py", line 26, in doAllGraphs
+    TemperatureHumidityGraph.TemperatureHumidityGraph('test', 10, 0)
+  File "./graphs/TemperatureHumidityGraph.py", line 126, in TemperatureHumidityGraph
+    fig.clf()
+UnboundLocalError: local variable 'fig' referenced before assignment
+, T2, T3, T4 ) VALUES (CURRENT_TIMESTAMP,29.44, 71.78, 45.37, 164.83, 0.00)trying database
+
+before query
+query=INSERT INTO PowerSystem(TimeStamp, batteryVoltage, batteryCurrent, solarVoltage, solarCurrent, loadVoltage, loadCurrent, batteryPower, solarPower, loadPower, batteryCharge) VALUES (UTC_TIMESTAMP (), 4.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000)
+ BarometerLightningGraph source:test days:10
+('sleeping seconds:', 0)
+BarometerLightningGraph running now
+trying database
+query= SELECT T, TT, T1, T2 FROM Tanks_Log where  now() - interval 240 hour < T
+('count of t=', 437)
+BarometerLightningGraph finished now
+TemperatureHumidityGraph source:test days:10
+('sleeping seconds:', 0)
+TemperatureHumidityGraph running now
+trying database
+query= SELECT TimeStamp, bmp180Temperature,  outsideTemperature, outsideHumidity, insideHumidity FROM WeatherData where  now() - interval 240 hour < TimeStamp
+Error 1146: Table 'enviro1.WeatherData' doesn't exist
+local variable 'fig' referenced before assignment
+  File "/usr/local/lib/python2.7/dist-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/home/active/SDL_Pi_SkyWeather/doAllGraphs.py", line 26, in doAllGraphs
+    TemperatureHumidityGraph.TemperatureHumidityGraph('test', 10, 0)
+  File "./graphs/TemperatureHumidityGraph.py", line 126, in TemperatureHumidityGraph
+    fig.clf()
+
+--Sending Data to WeatherUnderground--
+cws=| 0.0
+myURL= ID=IWELLA10&PASSWORD=di6xoYUb&dateutc=now&winddir=0&windspeedmph=0.00&windgustmph=0.00&humidity=45&tempf=71.60&dewptf=51.99&rainin=0.00&dailyrainin=0.00&baromin=29.45&indoortempf=72.54&uv=0.00&indoorhumidity38.60=&software=SkyWeather
+https://rtupdate.wunderground.com/weatherstation/updateweatherstation.php?ID=IWELLA10&PASSWORD=di6xoYUb&dateutc=now&winddir=0&windspeedmph=0.00&windgustmph=0.00&humidity=45&tempf=71.60&dewptf=51.99&rainin=0.00&dailyrainin=0.00&baromin=29.45&indoortempf=72.54&uv=0.00&indoorhumidity38.60=&software=SkyWeather
+success
+
+***************** 
+***************** 
+***************** 
+Raspberry Pi=	2021-12-11 06:22:52
+DS3231=		2021-09-07 14:38:37
+DS3231 Temperature= 	23.00 C
+************* 
+ AS3935 Lightning Detector Not Present 
+**********************
+----No Lightning detected---
+Lightning Count =  0
+----------------- 
+***************************
+* Sample and Display Done *
+***************************
+**********************
+* Sample and Display *
+**********************
+----------------- 
+ Weather Sampling
+----------------- 
+--Sending Data to WeatherUnderground--
+cws=| 0.0
+myURL= ID=IWELLA10&PASSWORD=di6xoYUb&dateutc=now&winddir=0&windspeedmph=0.00&windgustmph=0.00&humidity=45&tempf=71.30&dewptf=51.83&rainin=0.00&dailyrainin=0.00&baromin=29.45&indoortempf=72.54&uv=0.00&indoorhumidity38.62=&software=SkyWeather
+https://rtupdate.wunderground.com/weatherstation/updateweatherstation.php?ID=IWELLA10&PASSWORD=di6xoYUb&dateutc=now&winddir=0&windspeedmph=0.00&windgustmph=0.00&humidity=45&tempf=71.30&dewptf=51.83&rainin=0.00&dailyrainin=0.00&baromin=29.45&indoortempf=72.54&uv=0.00&indoorhumidity38.62=&software=SkyWeather
+success
+
+***************** 
+***************** 
+***************** 
+Raspberry Pi=	2021-12-11 06:23:22
+DS3231=		2021-09-07 14:39:07
+DS3231 Temperature= 	23.00 C
+************* 
+ AS3935 Lightning Detector Not Present 
+**********************
+----No Lightning detected---
+Lightning Count =  0
+----------------- 
+***************************
+* Sample and Display Done *
+***************************
+Tick! The time is: 2021-12-11 06:23:50.823677
+**********************
+* Sample and Display *
+**********************
+----------------- 
+ Weather Sampling
+----------------- 
+trying database
+Connected to database:
+query=INSERT INTO Tanks_Log(T, TT, T1, T2, T3, T4 ) VALUES (CURRENT_TIMESTAMP,29.45, 71.30, 45.93, 164.83, 0.00)
+--Sending Data to WeatherUnderground--
+cws=| 0.0
+myURL= ID=IWELLA10&PASSWORD=di6xoYUb&dateutc=now&winddir=0&windspeedmph=0.00&windgustmph=0.00&humidity=46&tempf=71.02&dewptf=51.69&rainin=0.00&dailyrainin=0.00&baromin=29.45&indoortempf=72.54&uv=0.00&ind
