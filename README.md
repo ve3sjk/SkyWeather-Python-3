@@ -4,6 +4,17 @@ NOTE: This is a work in progress only the stuff below is working
 further files for solarmax and other available hardware are not
 ported since i don't have that hardware to test on my system.
 
+It's unlikley the install script works i have not tried it
+the files are take directly from my server. I would suggest
+the contents are copied to a location on your server, and it
+you look in the install script code just find the commands
+for file permission and apply them. Although if anyone tries
+and install from this, do let me know if it works.
+
+If anyone knows how i can make a dump of the current owner
+and permission of my directory i will be happy to include 
+it here. 
+
 I have made additional changes to the original files as follows
 
 - Currently Working Sensors and my development system
