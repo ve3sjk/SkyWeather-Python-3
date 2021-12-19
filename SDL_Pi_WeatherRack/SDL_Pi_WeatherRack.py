@@ -61,70 +61,48 @@ WIND_FACTOR = 2.400 / SDL_INTERRUPT_CLICKS
 
 
 def fuzzyCompare(compareValue, value):
-    
     VARYVALUE = 0.05
-
     if ( (value > (compareValue * (1.0-VARYVALUE)))  and (value < (compareValue *(1.0+VARYVALUE))) ):
-            return True
-        
+        return True
     return False
  
 def voltageToDegrees(value, defaultWindDirection):
-        # Note:  The original documentation for the wind vane says 16 positions.  Typically only recieve 8 positions.  And 315 degrees was wrong.
-     
-        # For 5V, use 1.0.  For 3.3V use 0.66
+    # Note:  The original documentation for the wind vane says 16 positions.  Typically only recieve 8 positions.  And 315 degrees was wrong.
+    # For 5V, use 1.0.  For 3.3V use 0.66
     ADJUST3OR5 = 0.66
     PowerVoltage = 5.0
-
-
     if (fuzzyCompare(3.84 * ADJUST3OR5, value)):
-            return 0.0
-
+        return 0.0
     if (fuzzyCompare(1.98 * ADJUST3OR5, value)):
-            return 22.5
-
+        return 22.5
     if (fuzzyCompare(2.25 * ADJUST3OR5, value)):
         return 45
-                  
     if (fuzzyCompare(0.41 * ADJUST3OR5, value)):
         return 67.5
-                      
     if (fuzzyCompare(0.45 * ADJUST3OR5, value)):
         return 90.0
-
     if (fuzzyCompare(0.32 * ADJUST3OR5, value)):
         return 112.5
-
     if (fuzzyCompare(0.90 * ADJUST3OR5, value)):
         return 135.0
-
     if (fuzzyCompare(0.62 * ADJUST3OR5, value)):
         return 157.5
-
     if (fuzzyCompare(1.40 * ADJUST3OR5, value)):
         return 180
-
     if (fuzzyCompare(1.19 * ADJUST3OR5, value)):
         return 202.5
-
     if (fuzzyCompare(3.08 * ADJUST3OR5, value)):
         return 225
-
     if (fuzzyCompare(2.93 * ADJUST3OR5, value)):
         return 247.5
-
     if (fuzzyCompare(4.62 * ADJUST3OR5, value)):
         return 270.0
-    
     if (fuzzyCompare(4.04 * ADJUST3OR5, value)):
         return 292.5
-
     if (fuzzyCompare(4.34 * ADJUST3OR5, value)): # chart in manufacturers documentation wrong
         return 315.0
-    
     if (fuzzyCompare(3.43 * ADJUST3OR5, value)):
         return 337.5
-    
     return defaultWindDirection  # return previous value if not found
 
 # return current microseconds
@@ -205,7 +183,6 @@ class SDL_Pi_WeatherRack:
             value = self.ads1015.readRaw(1, self.gain, self.sps) # AIN1 wired to wind vane on WeatherPiArduino
             time_.sleep(1.0)
             value = self.ads1015.readRaw(1, self.gain, self.sps) # AIN1 wired to wind vane on WeatherPiArduino
-
             # now figure out if it is an ADS1015 or ADS1115
             if ((0x0F & value) == 0):
                 config.ADS1015_Present = True
@@ -224,8 +201,6 @@ class SDL_Pi_WeatherRack:
                 config.ADS1015_Present = False
                 config.ADS1115_Present = True
                 self.ads1015 = ADS1x15(ic=ADS1115, address=0x48)
-
-
         except TypeError as e:
             print ("Type Error")
             config.ADS1015_Present = False
@@ -242,16 +217,14 @@ class SDL_Pi_WeatherRack:
         if (SDL_Pi_WeatherRack._ADMode == SDL_MODE_I2C_ADS1015):
             value = self.ads1015.readADCSingleEnded(1, self.gain, self.sps) # AIN1 wired to wind vane on WeatherPiArduino
             voltageValue = value/1000
-        if(config.SWDEBUG == True):
-            print (" Wind Direction Value = ", value)
-            print (" Wind Direction Voltage Value = ", voltageValue)
+            if(config.SWDEBUG == True):
+                print (" Wind Direction Value = ", value)
+                print (" Wind Direction Voltage Value = ", voltageValue)
         else:
                 # user internal A/D converter
                 voltageValue = 0.0
-                direction = voltageToDegrees(voltageValue, SDL_Pi_WeatherRack._currentWindDirection)
+        direction = voltageToDegrees(voltageValue, SDL_Pi_WeatherRack._currentWindDirection)
         return direction;
-
-
 
     def current_wind_direction_voltage(self):
     
@@ -262,6 +235,8 @@ class SDL_Pi_WeatherRack:
             # user internal A/D converter
             voltageValue = 0.0
         return voltageValue
+
+
 
     # Utility methods
 
@@ -274,12 +249,11 @@ class SDL_Pi_WeatherRack:
     def reset_wind_gust(self):
         SDL_Pi_WeatherRack._shortestWindTime = 0xffffffff;
 
-
     def startWindSample(self, sampleTime):
         SDL_Pi_WeatherRack._startSampleTime = micros();
         SDL_Pi_WeatherRack._sampleTime = sampleTime;
         # get current wind 
-        
+
     def get_current_wind_speed_when_sampling(self):
         compareValue = SDL_Pi_WeatherRack._sampleTime*1000000;
         if (micros() - SDL_Pi_WeatherRack._startSampleTime >= compareValue):
@@ -290,7 +264,7 @@ class SDL_Pi_WeatherRack:
             SDL_Pi_WeatherRack._currentWindCount = 0
             SDL_Pi_WeatherRack._startSampleTime = micros()
             #print "SDL_Pi_WeatherRack._currentWindSpeed=", SDL_Pi_WeatherRack._currentWindSpeed 
-            return SDL_Pi_WeatherRack._currentWindSpeed
+        return SDL_Pi_WeatherRack._currentWindSpeed
 
     def setWindMode(self, selectedMode, sampleTime): # time in seconds 
   
