@@ -1,22 +1,27 @@
 This is the initial commit of a port of SkyWeather to Python 3
 
+NOTE: This is a work in progress only the stuff below is working
+further files for solarmax and other available hardware are not
+ported since i don't have that hardware to test on my system.
+
 I have made additional changes to the original files as follows
 
--Currently Working Sensors and my development system
+- Currently Working Sensors and my development system
 
--as3935
--veml6070
--bme680
--sht30
--ads1015
--oled
--tsl2591
+- as3935
+- veml6070
+- bme680
+- sht30
+- ads1015
+- oled
+- tsl2591
+- weatherack
 
--System is currently sending data to 
+- System is currently sending data to 
 
--internal mysql database - custom
--so it may not out of the box 
--support original database
+- internal mysql database - custom
+- so it may not out of the box 
+- support original database
 
 It should not take much work to make it work
 i think its a coulple of lines that are commented
