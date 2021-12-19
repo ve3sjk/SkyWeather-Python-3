@@ -9,8 +9,8 @@
 #Debugmodes
 SWDEBUG = False
 DEBUGBLYNK = False
-MySQL_debug = True                                   
-DEGUGBLYNK = False
+MySQL_debug = True
+WU_debug = False
 #END
 #check for git
 
