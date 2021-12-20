@@ -11,6 +11,7 @@ SWDEBUG = False
 DEBUGBLYNK = False
 MySQL_debug = True
 WU_debug = False
+AS3935_debug=False
 #END
 #check for git
 

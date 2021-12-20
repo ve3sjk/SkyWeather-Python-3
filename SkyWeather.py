@@ -486,7 +486,7 @@ except IOError as e:
     print ("I/O error({0}): {1}".format(e.errno, e.strerror))
     config.BME680_Present = False
 
-print ("after bme680", config.BME680_Present)
+
 
     ###########################
     # OLED SSD_1306 Detection #
@@ -596,7 +596,8 @@ SpikeDetection = config.AS3935_Lightning_Config[5]
 try:
     if (config.TCA9545_I2CMux_Present):
         tca9545.write_control_register(TCA9545_CONFIG_BUS1)
-    print ("as3935 start")
+    if (config.AS3935_debug == True):
+        print ("as3935 start")
     as3935.set_noise_floor(NoiseFloor)
     as3935.set_indoors(Indoor)
     as3935.calibrate(tun_cap=TuneCap)
@@ -604,11 +605,14 @@ try:
     as3935.set_watchdog_threshold(WatchDogThreshold)
     as3935.set_spike_detection(SpikeDetection)
     config.AS3935_Present = True
-    print ("as3935 present at 0x03")
+    if (config.AS3935_debug == True):
+        print ("as3935 present at 0x03")
     if (config.TCA9545_I2CMux_Present):
         tca9545.write_control_register(TCA9545_CONFIG_BUS1)
 except IOError as e:
-    print ("I/O error1({0}): {1}".format(e.errno, e.strerror))
+    if (config.AS3935_debug == True):
+        print ("I/O error1({0}): {1}".format(e.errno, e.strerror))
+    config.AS3935_Present = False
     as3935 = RPi_AS3935(address=0x03, bus=1)
     try:
         as3935.set_noise_floor(NoiseFloor)
@@ -619,7 +623,8 @@ except IOError as e:
         as3935.set_spike_detection(SpikeDetection)
         config.AS3935_Present = True
     except IOError as e:
-        print ("I/O error2({0}): {1}".format(e.errno, e.strerror))
+        if (config.SWDEBUG == True):
+            print ("I/O error2({0}): {1}".format(e.errno, e.strerror))
         config.AS3935_Present = False
         # back to BUS0
         if (config.TCA9545_I2CMux_Present):
@@ -658,7 +663,8 @@ GPIO.setup(as3935pin, GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
 if (config.AS3935_Present == True) :
     GPIO.add_event_detect(as3935pin, GPIO.RISING, callback=handle_as3935_interrupt)
 else:
-    print ("AS3935 Not Present - Interupts Disabled")
+    if (config.AS3935_debug == True):
+        print ("AS3935 Not Present - Interupts Disabled")
 
 
     ###############
@@ -795,9 +801,7 @@ def sampleWeather():
         
         # print ("Entered Sample Routine 1")
         currentWindSpeed = weatherStation.current_wind_speed()
-        # if (currentWindSpeed is None):
-            # currentWindSpeed = 0
-        # print("Wind Speed: MPH %0.2f" % (currentWindSpeed))
+        # print("Wind Speed: MPH %0.2f" % currentWindSpeed)
         currentWindGust = weatherStation.get_wind_gust()
         totalRain = totalRain + weatherStation.get_current_rain_total()/SDL_INTERRUPT_CLICKS
         if ((config.ADS1015_Present == True) or (config.ADS1115_Present == True)):
@@ -873,7 +877,7 @@ def sampleWeather():
 
     HTUtemperature = 0.0
     HTUhumidity = 0.0
-    currentWindSpeed = 0.0
+    # currentWindSpeed = 0.0
 
     if (config.BMP280_Present):
         try:
@@ -947,22 +951,24 @@ def sampleWeather():
         # turn I2CBus 0 on
     if (config.TCA9545_I2CMux_Present):
         tca9545.write_control_register(TCA9545_CONFIG_BUS0)
-
+        
+    if (config.AS3935_Present == True) :
         # Process Last Interupt
-    if (as3935LastInterrupt == 0x00):
-        as3935InterruptStatus = "----No Lightning detected---"
-    if (as3935LastInterrupt == 0x01):
-        as3935InterruptStatus = "Noise Floor: %s" % as3935LastStatus
-        as3935LastInterrupt = 0x00
-    if (as3935LastInterrupt == 0x04):
-        as3935InterruptStatus = "Disturber: %s" % as3935LastStatus
-        as3935LastInterrupt = 0x00
-    if (as3935LastInterrupt == 0x08):
-        as3935InterruptStatus = "Lightning: %s" % as3935LastStatus
-        as3935LightningCount += 1
-        as3935LastInterrupt = 0x00
-    if (config.AS3935_Present == False):
-        as3935InterruptStatus = "No AS3935 Lightning Detector Present"
+        if (as3935LastInterrupt == 0x00):
+            as3935InterruptStatus = "----No Lightning detected---"
+        if (as3935LastInterrupt == 0x01):
+            as3935InterruptStatus = "Noise Floor: %s" % as3935LastStatus
+            as3935LastInterrupt = 0x00
+        if (as3935LastInterrupt == 0x04):
+            as3935InterruptStatus = "Disturber: %s" % as3935LastStatus
+            as3935LastInterrupt = 0x00
+        if (as3935LastInterrupt == 0x08):
+            as3935InterruptStatus = "Lightning: %s" % as3935LastStatus
+            as3935LightningCount += 1
+            as3935LastInterrupt = 0x00
+    else:
+        if (config.AS3935_debug == True):
+            as3935InterruptStatus = "No AS3935 Lightning Detector Present"
         as3935LastInterrupt = 0x00
 
     if (config.WXLink_Present == False) :
@@ -1165,7 +1171,8 @@ def sampleAndDisplay():
         # print("Wind Speed: MPH %0.2f" % (currentWindSpeed)/1.6)
         # print ("Wind Speed=\t%0.2f MPH")%(currentWindSpeed/1.6)
         #state.pastBarometricReading = state.currentBarometricPressure
-        if (config.OLED_Present):            
+        if (config.OLED_Present):
+            # print("Wind Speed: MPH %0.2f" % currentWindSpeed)
             Scroll_SSD1306.addLineOLED(display,("Wind Speed=\t%0.2f MPH")%(currentWindSpeed/1.6))
             Scroll_SSD1306.addLineOLED(display,  ("Rain Total=\t%0.2f in")%(totalRain/25.4))
             if (config.ADS1015_Present or config.ADS1115_Present):
@@ -1188,28 +1195,29 @@ def sampleAndDisplay():
         if (config.AS3935_Present):
             print (" AS3935 Lightning Detector ")
         else:
-            print (" AS3935 Lightning Detector Not Present ")
+            if (config.AS3935_debug == True):
+                print (" AS3935 Lightning Detector Not Present ")
         print ("**********************")
         if (config.AS3935_Present):
             print ("Last result from AS3935:")
-        if (as3935LastInterrupt == 0x00):
-            print ("----No Lightning detected---")
-        if (as3935LastInterrupt == 0x01):
-            print ("Noise Floor: %s" % as3935LastStatus)
+            if (as3935LastInterrupt == 0x00):
+                print ("----No Lightning detected---")
+            if (as3935LastInterrupt == 0x01):
+                print ("Noise Floor: %s" % as3935LastStatus)
             as3935LastInterrupt = 0x00
-        if (as3935LastInterrupt == 0x04):
-            print ("Disturber: %s" % as3935LastStatus)
+            if (as3935LastInterrupt == 0x04):
+                print ("Disturber: %s" % as3935LastStatus)
             as3935LastInterrupt = 0x00
-        if (as3935LastInterrupt == 0x08):
-            print ("Lightning: %s" % as3935LastStatus)
-            if (config.OLED_Present):
-                Scroll_SSD1306.addLineOLED(display, '')
-                Scroll_SSD1306.addLineOLED(display, '---LIGHTNING---')
-                Scroll_SSD1306.addLineOLED(display, '')
+            if (as3935LastInterrupt == 0x08):
+                print ("Lightning: %s" % as3935LastStatus)
+                if (config.OLED_Present):
+                    Scroll_SSD1306.addLineOLED(display, '')
+                    Scroll_SSD1306.addLineOLED(display, '---LIGHTNING---')
+                    Scroll_SSD1306.addLineOLED(display, '')
             as3935LightningCount += 1
             as3935LastInterrupt = 0x00
-        print ("Lightning Count = ", as3935LightningCount)
-        print ("----------------- ")
+            print ("Lightning Count = ", as3935LightningCount)
+            print ("----------------- ")
         if (config.SWDEBUG == True):
             state.printState()
         if (config.USEBLYNK):
@@ -1345,8 +1353,8 @@ WLAN_check_flg = 0
 def WLAN_check():
         #
         # This function checks if the WLAN is still up by pinging the router.
-        # If there is no return, we'll reset the WLAN connection.
-        # If the resetting of the WLAN does not work, we need to reset the Pi.
+        # if there is no return, we'll reset the WLAN connection.
+        # if the resetting of the WLAN does not work, we need to reset the Pi.
         # source http://www.raspberrypi.org/forums/viewtopic.php?t=54001&p=413095
         #
     global WLAN_check_flg
@@ -1584,7 +1592,7 @@ if(config.Camera_Present):
     SkyCamera.sendSkyWeather()
 
 # Set up scheduler
-scheduler = BackgroundScheduler()
+scheduler = BackgroundScheduler(timezone="America/Toronto")
 
 # for debugging
 scheduler.add_listener(ap_my_listener, apscheduler.events.EVENT_JOB_ERROR)
